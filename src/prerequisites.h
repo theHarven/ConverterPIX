@@ -57,6 +57,7 @@
 #include <array>
 #include <sstream>
 #include <unordered_map>
+#include <optional>
 
 //
 /// Utils
@@ -103,11 +104,15 @@ using UniquePtr		= std::unique_ptr<T>;
 template < typename FIRST, typename SECOND >
 using Pair			= std::pair<FIRST, SECOND>;
 
+template< typename T >
+using Optional		= std::optional< T >;
+
 #include <callbacks.h>
 
 #define TAB		"     "
 #define SEOL	"\n"
 #define FLT_FT	"&%08x"
+#define DBL_FT	"&%016x"
 
 #ifndef MAX_PATH
 #define MAX_PATH 260
@@ -200,6 +205,11 @@ double lin2s(double x);
 inline uint32_t flh(float x)
 {
 	return *(uint32_t *)(&x);
+}
+
+inline uint64_t dlh(double x)
+{
+	return *(uint64_t*)(&x);
 }
 
 String removeSpaces(String str);

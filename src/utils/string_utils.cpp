@@ -1,7 +1,7 @@
 /******************************************************************************
  *
  *  Project:	ConverterPIX @ Core
- *  File:		/texture/texture.h
+ *  File:		/utils/string_utils.cpp
  *
  *		  _____                          _            _____ _______   __
  *		 / ____|                        | |          |  __ \_   _\ \ / /
@@ -11,7 +11,7 @@
  *		 \_____\___/|_| |_|\_/ \___|_|   \__\___|_|  |_|   |_____/_/ \_\
  *
  *
- *  Copyright (C) 2017 Michal Wojtowicz.
+ *  Copyright (C) 2023 Michal Wojtowicz.
  *  All rights reserved.
  *
  *   This software is ditributed WITHOUT ANY WARRANTY; without even
@@ -20,24 +20,20 @@
  *
  *****************************************************************************/
 
-#pragma once
+#include <prerequisites.h>
 
-class Texture
+#include "string_utils.h"
+
+Optional<String> extractExtension(const String &filePath)
 {
-public:
-	bool load();
-	String texture() const { return m_texture; }
-	const SharedPtr<TextureObject> &texobj() const { return m_texObj; }
+	const size_t dotPosition = filePath.rfind('.');
 
-private:
-	String m_texture;
-	String m_textureName;
+	if (dotPosition == String::npos)
+	{
+		return Optional<String>();
+	}
 
-	Array<Material::Attribute> m_attributes;
-
-	SharedPtr<TextureObject> m_texObj;
-
-	friend Material;
-};
+	return Optional<String>(filePath.substr(dotPosition));
+}
 
 /* eof */
